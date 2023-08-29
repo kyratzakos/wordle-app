@@ -1,22 +1,63 @@
 from random_words import RandomWords
+from rich import *
+
+DOTS = {
+    'correct_place': f'[black on green]o[/]',
+    'correct_letter': f'[black on yellow]o[/]',
+    'incorrect_letter': f'[black on white]o[/]'
+}
 
 
-# faction that generates a valid word
 def getaword():
+    # generates a valid 5-letter word
     rw = RandomWords()
     validword = rw.random_words(min_letter_count=5)
-    print(f'Word is: {validword}')
-
-    while validword is None or '-' in validword:
-        validword = rw.random_words(min_letter_count=5).upper()
-    else:
-        print(f'Word is: {validword}')
-        return validword
+    while len(validword[0]) != 5:
+        validword = rw.random_words(min_letter_count=4)
+    return validword
 
 
-# main faction of the game
+def correct_place(letter):
+    return f'[black on green]{letter}[/]'
+
+
+def correct_letter(letter):
+    return f'[black on yellow]{letter}[/]'
+
+
+def incorrect_letter(letter):
+    return f'[black on white]{letter}[/]'
+
+
+def game_is_over(guess, word, guesses):
+    # checks if the game is over. Change the number below to have more guesses
+    if guess == word or guesses == 6:
+        return True
+    return False
+
+
+def guess_check(guess_word, correct_word):
+    # checks if the guess is correct letter per letter
+    guessed = []
+    wordle_pattern = []
+    for i, letter in enumerate(guess_word):
+        if correct_word[i] == guess_word[i]:
+            guessed += correct_place(letter)
+            wordle_pattern.append(DOTS['correct_place'])
+        elif letter in correct_word:
+            guessed += correct_letter(letter)
+            wordle_pattern.append(DOTS['correct_letter'])
+        else:
+            guessed += incorrect_letter(letter)
+            wordle_pattern.append(DOTS['incorrect_letter'])
+    return ''.join(guessed), ''.join(wordle_pattern)
+
+
 def play():
+    # main funtion of the game
     word = getaword()
+    tries = 6
+
     print(word)
 
 
