@@ -29,9 +29,9 @@ def incorrect_letter(letter):
     return f'[black on white]{letter}[/]'
 
 
-def game_is_over(guess, word, guesses):
-    # checks if the game is over. Change the number below to have more guesses
-    if guess == word or guesses == 6:
+def game_is_over(guess, word, guesses, rounds):
+    # checks if the game is over
+    if guess == word or guesses == rounds:
         return True
     return False
 
@@ -55,8 +55,11 @@ def guess_check(guess_word, correct_word):
 
 def play():
     # main funtion of the game
+    tries = 0
     word = getaword()
-    tries = 6
+    while not game_is_over() :
+        tries += 1
+        g
 
     print(word)
 
