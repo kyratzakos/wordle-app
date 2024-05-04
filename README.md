@@ -22,7 +22,7 @@ pip install -r requirements.txt
 3. Run the `wordle.py` script using Python:
 
 ```
-python wordle.py
+python wordleapp.py
 ```
 
 4. The game will prompt you to enter a 5-letter word.
